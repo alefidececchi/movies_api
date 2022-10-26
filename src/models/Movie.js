@@ -10,7 +10,7 @@ const movieSchema = new Schema({
     link_img: String,
     link_img_larger: String,
     link_trailer: String,
-    release_year: { type: Number, required: 'se requiere año se estreno' },
+    release_year: { type: Number, required: 'se requiere año de estreno' },
     title: { type: String, required: 'se requiere nombre de la pelicula' },
     type_storage: [{ type: String, enum: ['dvd', 'pendrive'] }]
 })
