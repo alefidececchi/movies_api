@@ -6,7 +6,7 @@ const movieSchema = new Schema({
     country: String,
     description: { type: String, required: 'debes agregar una descripcion de la pelicula' },
     director: { type: String, required: 'se requiere nombre del director' },
-    genre: [{ type: String, required: 'se requiere al menos un genero' }],
+    category: [{ type: String, required: 'se requiere al menos un genero' }],
     link_img: String,
     link_img_larger: String,
     link_trailer: String,

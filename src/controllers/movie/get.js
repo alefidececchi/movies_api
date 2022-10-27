@@ -3,41 +3,46 @@ const Movie = require('../../models/Movie.js');
 
 const getMovies = async (req = request, res = response) => {
 
-    let { genre, title, year } = req.query
-    // const year = Number(year)
+    let { category, title, year } = req.query
     let movies;
-    let moviesY;
-    let moviesG;
+    // let moviesY;
+    // let moviesG;
     try {
         if (!title) {
             movies = await Movie.find()
-            moviesY = year ? getMovieYearRelease(movies, year) : movies;
-            moviesG = genre ? getMoviesGenre( moviesY, genre ) : moviesY
-            return res.status(200).json({ movies: moviesG })
+            movies = year ? getMovieYearRelease(movies, year) : movies;
+            movies = category ? getMoviesCategory(movies, category) : movies
+            return res.status(200).json({ movies: movies })
         } else {
             movies = await getMovieTitle(title)
         }
         return res.status(200).json({ movies })
     } catch (error) {
-        throw error
+        return res.status(404).json({ error: error.message })
     }
 }
 
-const getMovieId = (req = request, res = response) => {
-
-    // const { id } = req.params
-
-
+const getMovieId = async (req = request, res = response) => {
+    const { id } = req.params
+    try {
+        const movie = await Movie.findById(id)
+        return res.status(200).json({ movie });
+    } catch (error) {
+        return res.status(404).json({ error: 'Algo con el id salió mal' })
+    }
 }
 
-const getMoviesGenre = (movies, genre) => {
-    return movies.filter(m => m.genre.includes(genre))
-
+const getMoviesCategory = (movies, category) => {
+    return movies.filter(m => m.category.includes(category))
 }
 
 const getMovieTitle = async (title) => {
-    const movies = await Movie.find({ title: new RegExp(title, 'i') }) //FALTA NORMALIZAR TITLE
-    return movies;
+    try {
+        const movies = await Movie.find({ title: new RegExp(title, 'i') })
+        return movies;
+    } catch (error) {
+        return new Error('Algo salió mal con el titulo')
+    }
 }
 
 const getMovieYearRelease = (movies, year) => {
@@ -48,6 +53,6 @@ module.exports = {
     getMovies,
     getMovieId,
     getMovieTitle,
-    getMoviesGenre,
+    getMoviesCategory,
     getMovieYearRelease
 }

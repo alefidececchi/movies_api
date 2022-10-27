@@ -5,9 +5,10 @@ const Movie = require('../../models/Movie.js');
 const createMovie = async (req = request, res = response) => {
     const {
         actors,
+        category,
+        country,
         description,
         director,
-        genre,
         link_img,
         link_img_larger,
         link_trailer,
@@ -19,9 +20,10 @@ const createMovie = async (req = request, res = response) => {
     try {
         const movie = await Movie.create({
             actors,
+            category,
+            country,
             description,
             director,
-            genre,
             link_img,
             link_img_larger,
             link_trailer,
@@ -29,10 +31,10 @@ const createMovie = async (req = request, res = response) => {
             title,
             type_storage
         })
-        return res.status(200).json({ mesagge: 'La película fue creada exitosamente, ya está disponible en la app', movie })
+        return res.status(200).json({ message: 'La película ya está disponible en la app', movie })
     } catch (error) {
         console.log(error)
-        return res.status(404).json({ error: error.mesagge })
+        return res.status(404).json({ error: error.errors["category.0"].message })
     }
 }
 

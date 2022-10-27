@@ -5,13 +5,15 @@ const Serie = require('../../models/Serie.js');
 const createSerie = async (req = request, res = response) => {
     const {
         actors,
+        category,
+        country,
         description,
         director,
-        genre,
         link_img,
         link_img_larger,
         link_trailer,
         release_year,
+        season,
         title,
         type_storage
     } = req.body
@@ -19,13 +21,15 @@ const createSerie = async (req = request, res = response) => {
     try {
         const serie = await Serie.create({
             actors,
+            category,
+            country,
             description,
             director,
-            genre,
             link_img,
             link_img_larger,
             link_trailer,
             release_year,
+            season,
             title,
             type_storage
         })
