@@ -18,7 +18,7 @@ const createMovie = async (req = request, res = response) => {
     } = req.body
 
     try {
-        const movie = await Movie.create({
+        await Movie.create({
             actors,
             category,
             country,
@@ -31,9 +31,8 @@ const createMovie = async (req = request, res = response) => {
             title,
             type_storage
         })
-        return res.status(200).json({ message: 'La película ya está disponible en la app', movie })
+        return res.status(200).json({ message: 'La película ya está disponible en la app' })
     } catch (error) {
-        console.log(error)
         return res.status(404).json({ error: error.errors["category.0"].message })
     }
 }

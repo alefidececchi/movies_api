@@ -17,7 +17,7 @@ const updateMovie = async (req = request, res = response) => {
         type_storage
     } = req.body
     try {
-        const movie = await Movie.findByIdAndUpdate(id, {
+        await Movie.findByIdAndUpdate(id, {
             actors,
             category,
             country,

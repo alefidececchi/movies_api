@@ -19,7 +19,7 @@ const createSerie = async (req = request, res = response) => {
     } = req.body
 
     try {
-        const serie = await Serie.create({
+        await Serie.create({
             actors,
             category,
             country,
@@ -33,7 +33,7 @@ const createSerie = async (req = request, res = response) => {
             title,
             type_storage
         })
-        return res.status(200).json({ mesagge: 'La serie fue creada exitosamente, ya está disponible en la app', serie })
+        return res.status(200).json({ mesagge: 'La serie fue creada exitosamente, ya está disponible en la app'})
     } catch (error) {
         console.log(error)
         return res.status(404).json({ error: error.mesagge })

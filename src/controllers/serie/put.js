@@ -18,7 +18,7 @@ const updateSerie = async(req = request, res = response) => {
         type_storage
     } = req.body
     try {
-        const serie = await Serie.findByIdAndUpdate(id, {
+        await Serie.findByIdAndUpdate(id, {
             actors,
             category,
             country,
