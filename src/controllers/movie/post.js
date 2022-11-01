@@ -37,6 +37,13 @@ const createMovie = async (req = request, res = response) => {
     }
 }
 
+const postJWTFromGoogle = (req = request, res = response) => {
+    console.log('body credential', req.body.credential)
+    console.log('method:', req.method)
+
+}
+
 module.exports = {
-    createMovie
+    createMovie,
+    postJWTFromGoogle
 }

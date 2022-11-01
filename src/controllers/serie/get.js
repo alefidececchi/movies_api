@@ -6,6 +6,7 @@ const getSeries = async (req = request, res = response) => {
     let { category, title, year } = req.query
     let series;
 
+    
     try {
         if (!title) {
             series = await Serie.find()
