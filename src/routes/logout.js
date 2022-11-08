@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const { verifyLogin } = require('../controllers/login/get.js')
+const { logout } = require('../controllers/logout/put.js')
 
 
-router.get('/', verifyLogin)
+router.put('/:id', logout)
 
 module.exports = router;

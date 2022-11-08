@@ -5,11 +5,11 @@ async function verify(token) {
     try {
         const ticket = await client.verifyIdToken({
             idToken: token,
-            audience: CLIENT_ID,  
+            audience: CLIENT_ID,
         });
         return ticket.getPayload();
     } catch (error) {
-        console.log(error, 'Hubo un error al verificar el token')
+        console.log(error, 'Hubo un error al verificar el token ID')
     }
 }
 

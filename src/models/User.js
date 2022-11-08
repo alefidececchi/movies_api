@@ -5,8 +5,9 @@ const userSchema = new Schema({
     lastName: { type: String, required: 'se requiere un apellido' },
     name: { type: String, required: 'se requiere un nombre' },
     password: String,
-    picture: String,
-    role: { type: String, enum: ["ADMIN", "USER"], default: "USER" }
+    // picture: String,
+    role: { type: String, enum: ["ADMIN", "USER"], default: "USER" },
+    stateLogin: { type: Boolean, default: false },
 })
 
 module.exports = model('user', userSchema)
