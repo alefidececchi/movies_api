@@ -15,11 +15,9 @@ const postJWTFromGoogle = async (req = request, res = response) => {
             let loginUser;
             const payload = await verify(req.body.credential)
             let signinUser = await getUser(payload.email)
-            if (!!signinUser.length) {
+            !signinUser.length ?
+                loginUser = await createUserWithGoogle(payload) :
                 loginUser = await User.findByIdAndUpdate(signinUser[0]._id, { stateLogin: true }, { new: true })
-            } else {
-                loginUser = await createUserWithGoogle(payload)
-            }
             res.status(200).json({ message: 'El usuario es: ', user: loginUser, stateSignin: true })
         } else {
             await createUser(req, res);
