@@ -33,7 +33,7 @@ const createMovie = async (req = request, res = response) => {
         })
         return res.status(200).json({ message: 'La película ya está disponible en la app' })
     } catch (error) {
-        return res.status(404).json({ error: error.errors["category.0"].message })
+        return res.status(404).json({ error })
     }
 }
 

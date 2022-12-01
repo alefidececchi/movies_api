@@ -36,7 +36,7 @@ const createSerie = async (req = request, res = response) => {
         return res.status(200).json({ mesagge: 'La serie fue creada exitosamente, ya está disponible en la app'})
     } catch (error) {
         console.log(error)
-        return res.status(404).json({ error: error.mesagge })
+        return res.status(404).json({ error })
     }
 }
 

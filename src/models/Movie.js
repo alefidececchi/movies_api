@@ -2,7 +2,7 @@ const { model, Schema } = require('mongoose')
 
 
 const movieSchema = new Schema({
-    actors: [String],
+    actors: [{ type: String, required: 'Agrega al menos un actor' }],
     country: String,
     description: { type: String, required: 'debes agregar una descripcion de la pelicula' },
     director: { type: String, required: 'se requiere nombre del director' },
