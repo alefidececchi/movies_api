@@ -3,6 +3,6 @@ const router = express.Router()
 const { verifyLogin } = require('../controllers/login/get.js')
 
 
-router.get('/', verifyLogin)
+router.post('/', verifyLogin)
 
 module.exports = router;

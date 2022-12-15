@@ -2,8 +2,9 @@ const { request, response } = require('express')
 const { getUser } = require('../user/get');
 const { createUserWithGoogle } = require('../user/post.js')
 const { createUser } = require('../user/post.js')
-const verify = require('../../middlewares/auth.js');
+const {verifyTokenGoogle} = require('../../middlewares/auth.js');
 const User = require('../../models/User');
+const { verifyLogin } = require('../login/get');
 
 
 
@@ -13,11 +14,16 @@ const postJWTFromGoogle = async (req = request, res = response) => {
     try {
         if (!clasic) {
             let loginUser;
-            const payload = await verify(req.body.credential)
+            const payload = await verifyTokenGoogle(req.body.credential)
             let signinUser = await getUser(payload.email)
+            const otherReq = {
+                body: { email: payload.email, email_verified: payload.email_verified }
+            }
             !signinUser.length ?
                 loginUser = await createUserWithGoogle(payload) :
-                loginUser = await User.findByIdAndUpdate(signinUser[0]._id, { stateLogin: true }, { new: true })
+                //DEBERIA LOGEAR CORREO 
+                verifyLogin(otherReq)
+            // loginUser = await User.findByIdAndUpdate(signinUser[0]._id, { stateLogin: true }, { new: true })
             res.status(200).json({ message: 'El usuario es: ', user: loginUser, stateSignin: true })
         } else {
             await createUser(req, res);

@@ -6,9 +6,9 @@ const { deleteImgCarousel } = require('../controllers/carousel/delete.js')
 
 const router = express.Router()
 
-router.delete('/delete/:id', deleteImgCarousel)
-router.put('/update/:id', updateImgCarousel)
-router.post('/create', createImgCarousel)
+router.delete('/:id', deleteImgCarousel)
+router.put('/:id', updateImgCarousel)
+router.post('/', createImgCarousel)
 router.get('/', getCarousel)
 
 module.exports = router;

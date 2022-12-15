@@ -8,9 +8,9 @@ const { getSerieId, getSeries } = require('../controllers/serie/get.js')
 
 
 
-router.delete('/delete/:id', deleteSerie) //ELIMINA LA SERIE DE LA BASE DE DATOS
-router.put('/update/:id', updateSerie) //ACTUALIZA LA SERIE
-router.post('/create', createSerie); //CREA UNA SERIE
+router.delete('/:id', deleteSerie) //ELIMINA LA SERIE DE LA BASE DE DATOS
+router.put('/:id', updateSerie) //ACTUALIZA LA SERIE
+router.post('/', createSerie); //CREA UNA SERIE
 router.get('/:id', getSerieId) //OBTIENE EL DETALLE DE UNA SERIE
 router.get('/', getSeries);
 

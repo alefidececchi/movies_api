@@ -14,7 +14,7 @@ const createUser = async (req = request, res = response) => {
             const salt = bcrypt.genSaltSync()
             const hash = bcrypt.hashSync(password, salt)
             const user = await User.create({ email, lastName, name, password: hash })
-            res.status(201).json({ user, stateSignin: true })
+            res.status(201).json({ message: 'Usuario creado exitosamente' })
         }
     } catch (error) {
         console.log(error)
