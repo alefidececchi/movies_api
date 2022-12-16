@@ -14,16 +14,19 @@ const verifyLogin = async (req, res) => {
         if (!user) {
             res.status(401).json({ message: `Correo o contraseña invalida` })
         } else {
-            if (email_verified || !!bcrypt.compareSync(password, user.password)) {
-                console.log(user)
-                user = await User.findByIdAndUpdate(user._id, { stateLogin: true }, { new: true })
-                const userForToken = {
-                    id: user._id,
-                    role: user.role,
+            if (!!bcrypt.compareSync(password, user.password)) {
+                user = await User.findByIdAndUpdate(user._id, { stateLogin: true })
+                if (!user.stateLogin) {
+                    const userForToken = {
+                        id: user._id,
+                        role: user.role
+                    }
+                    const token = jwt.sign(userForToken, process.env.SECRET)
+                    console.log(token)
+                    return res.status(200).json({ token, id: user._id, stateLogin: true, message: 'hello' })
+                } else {
+                    return res.status(401).json({ message: `Ya se encuentra una sesion abierta` })
                 }
-                const token = jwt.sign(userForToken, process.env.SECRET)
-                console.log(token)
-                return res.status(200).json({ token, message: 'hello'})
             } else {
                 return res.status(401).json({ message: `Correo o contraseña invalida` })
             }

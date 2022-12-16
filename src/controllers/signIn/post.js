@@ -4,7 +4,7 @@ const { createUserWithGoogle } = require('../user/post.js')
 const { createUser } = require('../user/post.js')
 const {verifyTokenGoogle} = require('../../middlewares/auth.js');
 const User = require('../../models/User');
-const { verifyLogin } = require('../login/get');
+const { verifyLogin } = require('../login/post');
 
 
 

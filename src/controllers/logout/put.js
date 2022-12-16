@@ -8,7 +8,7 @@ const logout = async (req = request, res = response) => {
 
     try {
         const user = await User.findByIdAndUpdate(id, { stateLogin: false }, { new: true })
-        res.status(201).json({ message: "sesion cerrada exitosamente", user })
+        res.status(200).json({ message: "sesion cerrada exitosamente", user })
     } catch (error) {
         console.log(error)
     }
