@@ -23,7 +23,7 @@ const verifyLogin = async (req, res) => {
                     }
                     const token = jwt.sign(userForToken, process.env.SECRET)
                     console.log(token)
-                    return res.status(200).json({ token, id: user._id, stateLogin: true, message: 'hello' })
+                    return res.status(200).json({ token, id: user._id, stateLogin: true })
                 } else {
                     return res.status(401).json({ message: `Ya se encuentra una sesion abierta` })
                 }

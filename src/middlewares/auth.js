@@ -29,8 +29,25 @@ function verifyAdminToken(autorizationToken = '') {
     return decoded.role === 'ADMIN'
 }
 
+function verifyTokenLogoutSession(authorizationToken, id) {
+    console.log('Authorization token: ', authorizationToken)
+    console.log('ID: ', id)
+    let decoded;
+    let token = null;
+    
+    if (authorizationToken && authorizationToken.startsWith('Bearer ')) {
+        token = authorizationToken.split(' ')[1]
+    }
+    if (token !== null) {
+        decoded = jwt.verify(token, process.env.SECRET)
+    }
+    console.log(decoded)
+    return decoded.id === id
+}
+
 
 module.exports = {
+    verifyAdminToken,
     verifyTokenGoogle,
-    verifyAdminToken
+    verifyTokenLogoutSession
 }
