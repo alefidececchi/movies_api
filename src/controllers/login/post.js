@@ -7,7 +7,7 @@ const User = require('../../models/User')
 
 const verifyLogin = async (req, res) => {
 
-    const { email, password, email_verified } = req.body
+    const { email, password } = req.body
 
     try {
         let user = (await getUser(email))[0]
@@ -23,7 +23,12 @@ const verifyLogin = async (req, res) => {
                     }
                     const token = jwt.sign(userForToken, process.env.SECRET)
                     console.log(token)
-                    return res.status(200).json({ token, id: user._id, stateLogin: true })
+                    return res.status(200).json({
+                        id: user._id,
+                        role: user.role,
+                        stateLogin: true,
+                        token
+                    })
                 } else {
                     return res.status(401).json({ message: `Ya se encuentra una sesion abierta` })
                 }
