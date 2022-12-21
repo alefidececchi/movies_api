@@ -39,8 +39,8 @@ const createMovie = async (req = request, res = response) => {
         } else {
             return res.status(403).json({ message: 'No tienes autorizacion para crear documentos' })
         }
-    } catch ({ message }) {
-        return res.status(401).json({ message })
+    } catch (error) {
+        return res.status(401).json({ message: 'Algo salió mal al crear el documento', error })
     }
 }
 

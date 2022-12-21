@@ -9,12 +9,12 @@ const deleteSerie = async (req = request, res = response) => {
     try {
         if (verifyAdminToken(authorization)) {
             await Serie.findByIdAndDelete(id);
-            res.status(200).json({ message: 'La serie fue eliminada de la base de datos' })
+            return res.status(200).json({ message: 'La serie fue eliminada de la base de datos' })
         } else {
             return res.status(403).json({ message: 'No tienes autorizacion eliminar documentos' })
         }
     } catch (error) {
-        return res.status(401).json({ error: 'Invalid or wrong token' })
+        return res.status(401).json({ message: 'Parece que no se pudo eliminar', error })
     }
 }
 

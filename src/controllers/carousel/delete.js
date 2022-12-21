@@ -15,7 +15,7 @@ const deleteImgCarousel = async (req = request, res = response) => {
             return res.status(403).json({ message: 'No tienes autorizacion para eliminar documentos' })
         }
     } catch (error) {
-        return res.status(401).json({ error: 'Parece que no se pudo eliminar' })
+        return res.status(401).json({ message: 'Parece que no se pudo eliminar', error })
     }
 }
 

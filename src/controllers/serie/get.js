@@ -5,7 +5,6 @@ const getSeries = async (req = request, res = response) => {
 
     let { category, title, year } = req.query
     let series;
-
     
     try {
         if (!title) {
@@ -18,7 +17,7 @@ const getSeries = async (req = request, res = response) => {
         }
         return res.status(200).json({ series })
     } catch (error) {
-        return res.status(404).json({ error: error.message })
+        return res.status(404).json({ message: 'Algo salió mal', error })
     }
 }
 
@@ -29,7 +28,7 @@ const getSerieId = async (req = request, res = response) => {
         const serie = await Serie.findById(id)
         return res.status(200).json({ serie })
     } catch (error) {
-        return res.status(404).json({ error: 'Algo con el id salió mal' })
+        return res.status(404).json({ message: 'Algo con el id salió mal', error })
     }
 }
 

@@ -36,13 +36,12 @@ const createSerie = async (req = request, res = response) => {
                 title,
                 type_storage
             })
-            return res.status(200).json({ mesagge: 'La serie fue creada exitosamente, ya está disponible en la app'})
+            return res.status(200).json({ message: 'La serie fue creada exitosamente, ya está disponible en la app'})
         } else {
             return res.status(403).json({ message: 'No tienes autorizacion crear documentos' })
         }
     } catch (error) {
-        console.log(error)
-        return res.status(401).json({ error })
+        return res.status(401).json({ message: 'Algo salió mal al crear el documento', error })
     }
 }
 

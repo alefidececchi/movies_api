@@ -11,7 +11,7 @@ const getCarousel = async (req = request, res = response) => {
                 await Carousel.find();
         return res.status(200).json({ carousel })
     } catch (error) {
-        return res.status(404).json({ error: error.message })
+        return res.status(404).json({ message: 'Algo salió mal', error })
     }
 }
 

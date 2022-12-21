@@ -23,7 +23,6 @@ const updateSerie = async (req = request, res = response) => {
 
     try {
         if (verifyAdminToken(authorization)) {
-
             await Serie.findByIdAndUpdate(id, {
                 actors,
                 category,
@@ -43,7 +42,7 @@ const updateSerie = async (req = request, res = response) => {
             return res.status(403).json({ message: 'No tienes autorizacion actualizar documentos' })
         }
     } catch (error) {
-        return res.status(401).json({ error })
+        return res.status(401).json({ message: 'Algo salió mal', error })
     }
 }
 

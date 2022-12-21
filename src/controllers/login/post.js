@@ -5,14 +5,14 @@ const jwt = require('jsonwebtoken')
 const { getUser } = require('../user/get')
 const User = require('../../models/User')
 
-const verifyLogin = async (req, res) => {
+const verifyLogin = async (req = request, res = response) => {
 
     const { email, password } = req.body
 
     try {
         let user = (await getUser(email))[0]
         if (!user) {
-            res.status(401).json({ message: `Correo o contraseña invalida` })
+            return res.status(401).json({ message: `Correo o contraseña invalida` })
         } else {
             if (!!bcrypt.compareSync(password, user.password)) {
                 user = await User.findByIdAndUpdate(user._id, { stateLogin: true })
@@ -37,7 +37,7 @@ const verifyLogin = async (req, res) => {
             }
         }
     } catch (error) {
-        console.log(error)
+        return res.status(401).json({ message: "Algo salió mal", error })
     }
 }
 

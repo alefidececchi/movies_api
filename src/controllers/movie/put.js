@@ -40,7 +40,7 @@ const updateMovie = async (req = request, res = response) => {
             return res.status(403).json({ message: 'No tienes autorizacion actualizar documentos' })
         }
     } catch (error) {
-        return res.status(401).json({ error })
+        return res.status(401).json({ message: 'Ocurrió algún error al actualizar el documento', error })
     }
 }
 
