@@ -1,16 +1,18 @@
 const express = require('express');
-const moviesRouter = require('./movies.js');
-const seriesRouter = require('./series.js')
 const carouselRouter = require('./carousel.js')
-const signinRouter = require('./signin.js')
+const categoryRouter = require('./category.js')
 const loginRouter = require('./login.js')
 const logoutRouter = require('./logout.js')
+const moviesRouter = require('./movies.js');
+const seriesRouter = require('./series.js')
+const signinRouter = require('./signin.js')
 
 const router = express.Router();
 
 
 // router.use('/user', userRouter);
 
+router.use('/category', categoryRouter)
 router.use('/carousel', carouselRouter)
 router.use('/series', seriesRouter)
 router.use('/movies', moviesRouter);

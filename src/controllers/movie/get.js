@@ -3,17 +3,16 @@ const Movie = require('../../models/Movie.js');
 
 const getMovies = async (req = request, res = response) => {
 
-    let { category, title, year } = req.query
+    let { categories, title, year } = req.query
     let movies;
-    
+
     try {
-        if (!title) {
-            movies = await Movie.find()
-            movies = year ? getMovieYearRelease(movies, year) : movies;
-            movies = category ? getMoviesCategory(movies, category) : movies
-            return res.status(200).json({ movies: movies })
-        } else {
+        if (categories) {
+            movies = await getMoviesCategories(categories)
+        } else if (title) {
             movies = await getMovieTitle(title)
+        } else {
+            movies = await Movie.find()
         }
         return res.status(200).json({ movies })
     } catch (error) {
@@ -31,8 +30,16 @@ const getMovieId = async (req = request, res = response) => {
     }
 }
 
-const getMoviesCategory = (movies, category) => {
-    return movies.filter(m => m.category.includes(category))
+const getMoviesCategories = async (categories) => {
+    try {
+        const arr = categories.split(',')
+        // console.log(arr)
+        const query = { $all: arr }
+        const movies = await Movie.find({ category: query })
+        return movies
+    } catch (error) {
+        return res.status(404).json({ message: 'El id salió está sospechoso', error })
+    }
 }
 
 const getMovieTitle = async (title) => {
@@ -52,6 +59,6 @@ module.exports = {
     getMovies,
     getMovieId,
     getMovieTitle,
-    getMoviesCategory,
+    getMoviesCategories,
     getMovieYearRelease
 }
