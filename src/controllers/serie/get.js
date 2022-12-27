@@ -3,17 +3,16 @@ const Serie = require('../../models/Serie.js');
 
 const getSeries = async (req = request, res = response) => {
 
-    let { category, title, year } = req.query
+    let { categories, title } = req.query
     let series;
-    
+
     try {
-        if (!title) {
-            series = await Serie.find()
-            series = year ? getSeriesYearRelease(series, year) : series;
-            series = category ? getSeriesCategory(series, category) : series
-            return res.status(200).json({ series })
-        } else {
+        if (categories) {
+            series = await getSeriesCategory(categories)
+        } else if (title) {
             series = await getSerieTitle(title)
+        } else {
+            series = await Serie.find()
         }
         return res.status(200).json({ series })
     } catch (error) {
@@ -32,8 +31,15 @@ const getSerieId = async (req = request, res = response) => {
     }
 }
 
-const getSeriesCategory = (series, category) => {
-    return series.filter(s => s.category.includes(category))
+const getSeriesCategory = async (categories) => {
+    try {
+        const arr = categories.split(',')
+        const query = { $all: arr }
+        const series = await Serie.find({ category: query })
+        return series
+    } catch (error) {
+        return res.status(404).json({ message: 'Algo salío mal con las categorías seleccionadas', error })
+    }
 }
 
 const getSerieTitle = async (title) => {

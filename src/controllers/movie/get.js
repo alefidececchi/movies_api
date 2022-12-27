@@ -3,7 +3,7 @@ const Movie = require('../../models/Movie.js');
 
 const getMovies = async (req = request, res = response) => {
 
-    let { categories, title, year } = req.query
+    let { categories, title } = req.query
     let movies;
 
     try {
@@ -33,12 +33,11 @@ const getMovieId = async (req = request, res = response) => {
 const getMoviesCategories = async (categories) => {
     try {
         const arr = categories.split(',')
-        // console.log(arr)
         const query = { $all: arr }
         const movies = await Movie.find({ category: query })
         return movies
     } catch (error) {
-        return res.status(404).json({ message: 'El id salió está sospechoso', error })
+        return res.status(404).json({ message: 'Algo salío mal con las categorías seleccionadas', error })
     }
 }
 
@@ -47,7 +46,7 @@ const getMovieTitle = async (title) => {
         const movies = await Movie.find({ title: new RegExp(title, 'i') })
         return movies;
     } catch (error) {
-        return new Error('Algo salió mal con el titulo')
+        return new Error('Algo salió mal con el titulo agregado')
     }
 }
 
