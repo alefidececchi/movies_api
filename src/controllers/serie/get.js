@@ -42,6 +42,15 @@ const getSeriesCategory = async (categories) => {
     }
 }
 
+const getSeriesDashboard = async (req = request, res = response) => {
+    try {
+        const series = await Serie.find({}, { title: 1, link_img: 1 })
+        return res.status(200).json({ series })
+    } catch (error) {
+        return res.status(404).json({ message: 'Hubo algún error', error })
+    }
+}
+
 const getSerieTitle = async (title) => {
     try {
         const series = await Serie.find({ title: new RegExp(title, 'i') })
@@ -61,5 +70,6 @@ module.exports = {
     getSerieId,
     getSerieTitle,
     getSeriesCategory,
+    getSeriesDashboard,
     getSeriesYearRelease
 }

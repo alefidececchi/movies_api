@@ -6,6 +6,7 @@ const getMovies = async (req = request, res = response) => {
     let { categories, title } = req.query
     let movies;
 
+    //AGREGAR PAGINADO PARA PAGINA PRINCIPAL
     try {
         if (categories) {
             movies = await getMoviesCategories(categories)
@@ -41,6 +42,16 @@ const getMoviesCategories = async (categories) => {
     }
 }
 
+const getMoviesDashboard = async (req = request, res = response) => {
+
+    try {
+        const movies = await Movie.find({}, { title: 1, link_img: 1 })
+        return res.status(200).json({ movies })
+    } catch (error) {
+        return res.status(404).json({ message: 'Hubo algún error', error })
+    }
+}
+
 const getMovieTitle = async (title) => {
     try {
         const movies = await Movie.find({ title: new RegExp(title, 'i') })
@@ -59,5 +70,6 @@ module.exports = {
     getMovieId,
     getMovieTitle,
     getMoviesCategories,
+    getMoviesDashboard,
     getMovieYearRelease
 }
