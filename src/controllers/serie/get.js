@@ -49,9 +49,9 @@ const getSeriesDashboard = async (req = request, res = response) => {
     let series;
     try {
         if (title) {
-            series = await Serie.find({ title: new RegExp(title, 'i') }, { title: 1, link_img: 1 })
+            series = await Serie.find({ title: new RegExp(title, 'i') }, { title: 1, link_img: 1 }).sort({ _id: -1 })
         } else {
-            series = await Serie.find({}, { title: 1, link_img: 1 })
+            series = await Serie.find({}, { title: 1, link_img: 1 }).sort({ _id: -1 })
         }
         return res.status(200).json({ series })
     } catch (error) {

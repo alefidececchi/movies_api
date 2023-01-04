@@ -57,9 +57,9 @@ const getMoviesDashboard = async (req = request, res = response) => {
     let movies;
     try {
         if (title) {
-            movies = await Movie.find({ title: new RegExp(title, 'i') }, { title: 1, link_img: 1 })
+            movies = await Movie.find({ title: new RegExp(title, 'i') }, { title: 1, link_img: 1 }).sort({ _id: -1 })
         } else {
-            movies = await Movie.find({}, { title: 1, link_img: 1 })
+            movies = await Movie.find({}, { title: 1, link_img: 1 }).sort({ _id: -1 })
         }
         return res.status(200).json({ movies })
     } catch (error) {
